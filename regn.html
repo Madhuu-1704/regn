@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    .form-container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+    }
+    
+    #result {
+      margin-top: 20px;
+      background-color: #8b7393;
+      padding: 20px;
+    }
+    
+    #enrolledStudents {
+      margin-top: 40px;
+    }
+    
+    #enrolledStudents table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    #enrolledStudents th,
+    #enrolledStudents td {
+      padding: 8px;
+      border: 1px solid #d5aecb;
+    }
+    
+    #enrolledStudents th {
+      background-color: #d68b8b;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Student Registration Form</h1>
+    <div id="result"></div>
+    <form id="registrationForm">
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="course">Course:</label>
+        <input type="text" id="course" name="course" required>
+      </div>
+      <div class="form-group">
+        <button type="submit">Register</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="enrolledStudents">
+    <h2>Enrolled Students</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Course</th>
+        </tr>
+      </thead>
+      <tbody id="studentList"></tbody>
+    </table>
+  </div>
+
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var formData = new FormData(this);
+      var resultElement = document.getElementById('result');
+      var studentListElement = document.getElementById('studentList');
+      
+      resultElement.innerHTML = '';
+
+      var studentData = {};
+
+      for (var pair of formData.entries()) {
+        resultElement.innerHTML += '<p><strong>' + pair[0] + ':</strong> ' + pair[1] + '</p>';
+        studentData[pair[0]] = pair[1];
+      }
+
+      var newRow = studentListElement.insertRow();
+      newRow.innerHTML = '<td>' + studentData['firstName'] + '</td>' +
+                         '<td>' + studentData['lastName'] + '</td>' +
+                         '<td>' + studentData['email'] + '</td>' +
+                         '<td>' + studentData['course'] + '</td>';
+    });
+  </script>
+</body>
+</html>
